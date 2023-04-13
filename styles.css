@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@700&family=Poppins&display=swap');
+
+body{
+    font-family: 'Poppins', sans-serif;
+    background-image: url(./assets/fondo.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#selecciona-mascota{
+    display:flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items: center;
+}                      
+
+.titulo {
+    color:white;
+    font-weight:900;
+    font-family: 'Fredoka', sans-serif;
+    font-size:40px;
+}
+
+.subtitulo{
+    color:#fff;
+    font-weight:400;
+}
+.tarjetas, .tarjetas-ataques{
+    display:flex;
+    gap: 10px;
+}
+
+.tarjeta-de-dino{
+    width:220px;
+    height:120px;
+    background-color: #00000050;
+    padding:10px;
+    box-sizing:border-box;
+    border-radius:20px;
+    color:#fff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family: 'Roboto', sans-serif;
+}
+
+.tarjeta-de-dino:hover{
+    background-color: #2e99ad;
+}
+
+.tarjeta-de-dino > img{
+    width:100px;
+    height:100px;
+    background-color: #227C70;
+    box-sizing:border-box;
+    border-radius:20px;
+    color:#fff;
+    margin-left:10px;
+}
+
+#boton-dinomascota{
+    width:180px;
+    height: 40px;
+    border-radius: 20px;
+    background:transparent;
+    color:#fff;
+    margin:20px;
+    border: 2px solid white;
+}
+
+#boton-dinomascota:hover{
+    width:180px;
+    height: 40px;
+    border-radius: 20px;
+    background:#000;
+    color:#fff;
+    margin:20px;
+    border: 2px solid #000;
+}
+
+input{
+    display:none; 
+} 
+input:checked + label{
+    background:#63b8fb;
+}
+
+#selecciona-ataque{
+    flex-direction: column;
+    align-items: center;
+}
+
+.boton-ataque{
+    background:#2e99ad;
+    color:#fff;
+    border-radius:20px;
+    padding:20px;
+    box-sizing: border-box;
+    margin:0px 10px;
+    font-family: 'Roboto', sans-serif;
+    width: 120px;
+    font-weight:700;
+}
+
+#mensajes{
+    width: 300px;
+    background: #5db1f1;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 20px;
+    border-radius: 20px;
+}
+
+#boton-reiniciar{
+    width: 300px;
+    background: #ca8be4;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+    border-radius: 20px;
+    font-size: 16px;
+    font-family: 'Fredoka', sans-serif;
+    color:#fff;
+}
+
+.ataques{
+    display:grid;
+    grid-template-columns:300px 300px;
+    text-align:center;
+    color:#fff;
+}
+.ataques > div {
+    color:#fff;
+    margin:20px;
+    padding:20px;
+    background:#227C70;
+}
+
+#vidas-jugador, #vidas-enemigo{
+    font-size: 32px;
+    margin-bottom:0;
+}
+.ataques-jugador, .ataques-enemigo{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@media (max-width: 360px){
+    .tarjetas, .tarjetas-ataques{
+        flex-direction: column;
+    }
+}
