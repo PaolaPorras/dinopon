@@ -1,9 +1,7 @@
 const sectionSeleccionarAtaque = document.getElementById('selecciona-ataque')
 const sectionReiniciar= document.getElementById('reiniciar')
 const botonMascotaJugador = document.getElementById('boton-dinomascota')
-const botonFuego = document.getElementById('boton-fuego')
-const botonAgua  = document.getElementById('boton-agua')
-const botonTierra = document.getElementById('boton-tierra')
+
 const botonReiniciar = document.getElementById('boton-reiniciar')
 
 const sectionSeleccionarMascota = document.getElementById('selecciona-mascota')
@@ -16,19 +14,28 @@ const spanVidasEnemigo = document.getElementById('vidas-enemigo')
 const sectionMensajes = document.getElementById('resultado')
 const ataqueDelJugador = document.getElementById('ataque-del-jugador')
 const ataqueDelEnemigo = document.getElementById('ataque-del-enemigo')
-const contenedorTarjetas =document.getElementById('contenedor-tarjetas')
+const contenedorTarjetas = document.getElementById('contenedorTarjetas')
+const contenedorAtaques = document.getElementById('contenedorAtaques')
 
 let dinopones = []
+
 let ataqueJugador
 let ataqueEnemigo
+
 let opcionDeDinopones
+
 let inputHipodoge
 let inputCapipepo 
 let inputRatigueya 
 let inputLangostelvis
 let inputTucapalma 
 let inputPydos 
-let spanMascotaJugador = document.getElementById('mascota-jugador')
+
+let ataquesDinopon 
+let botonFuego
+let botonAgua
+let botonTierra
+
 let vidasJugador = 5
 let vidasEnemigo = 5
 
@@ -37,7 +44,7 @@ class Dinopon{
         this.nombre = nombre
         this.foto = foto
         this.vida = vida
-        this.ataques =[]
+        this.ataques = []
     }
 }
 
@@ -106,7 +113,7 @@ function iniciarPartida(){
         <input type="radio" name="dinomascota" id="${dinopon.nombre}"/>
         <label class ="tarjeta-de-dino" for="${dinopon.nombre}">
             <p>${dinopon.nombre}</p>
-            <img src="${dinopon.foto}" alt=${dinopon.nombre}>
+            <img src="${dinopon.foto}" alt="${dinopon.nombre}">
         </label>
 `
         contenedorTarjetas.innerHTML += opcionDeDinopones
@@ -122,50 +129,82 @@ function iniciarPartida(){
     
     sectionReiniciar.style.display ='none '
     botonMascotaJugador.addEventListener('click', SeleccionarMascotaJugador)
-    botonFuego.addEventListener('click', ataqueFuego)
-    botonAgua.addEventListener('click', ataqueAgua)
-    botonTierra.addEventListener('click', ataqueTierra)
+
     botonReiniciar.addEventListener('click', reiniciarJuego)
 }
 
 function SeleccionarMascotaJugador(){
+    let sectionSeleccionarMascota = document.getElementById('selecciona-mascota')
+
+    
+    let sectionSeleccionarAtaque = document.getElementById('selecciona-ataque')
+
     sectionSeleccionarMascota.style.display  ='none'
     sectionSeleccionarAtaque.style.display  ='flex'
+
     if (inputHipodoge.checked){
-        spanMascotaJugador.innerHTML='Hipodoge'
+        spanMascotaJugador.innerHTML = inputHipodoge.id
+        mascotaJugador = inputHipodoge.id
     } else if (inputCapipepo.checked){
-        spanMascotaJugador.innerHTML = 'Capipepo'
+        spanMascotaJugador.innerHTML = inputCapipepo.id
+        mascotaJugador = iinputCapipepo.id
     } else if (inputRatigueya.checked){
-        spanMascotaJugador.innerHTML = 'Ratigueya'
+        spanMascotaJugador.innerHTML = inputRatigueya.id
+        mascotaJugador = inputRatigueya.id
     } else if (inputLangostelvis.checked){
-        spanMascotaJugador.innerHTML = 'Langostelvis'
+        spanMascotaJugador.innerHTML = inputLangostelvis.id
+        mascotaJugador = inputLangostelvis.id
     } else if (inputTucapalma.checked){
-        spanMascotaJugador.innerHTML = 'Tucapalma'
+        spanMascotaJugador.innerHTML = inputTucapalma.id
+        mascotaJugador = inputTucapalma.id
     } else if (inputPydos.checked){
-        spanMascotaJugador.innerHTML = 'Pydos'
+        spanMascotaJugador.innerHTML = inputPydos.id
+        mascotaJugador = inputPydos.id
     }
     else {
         alert('Selecciona un dinomascota')
     }
+    extraerAtaques(mascotaJugador)
     seleccionarMascotaEnemigo()
 }
 
-function seleccionarMascotaEnemigo(){
-    let mascotaAleatoria = aleatorio(1,6)
-
-    if (mascotaAleatoria == 1){
-        spanMascotaEnemigo.innerHTML= 'Hipodoge'
-    } else if (mascotaAleatoria == 2){
-        spanMascotaEnemigo.innerHTML = 'Capipepo'
-    } else if (mascotaAleatoria == 3){
-        spanMascotaEnemigo.innerHTML = 'Ratigueya'
-    } else if (mascotaAleatoria == 4){
-        spanMascotaEnemigo.innerHTML = 'Langostelvis'
-    } else if (mascotaAleatoria == 5){
-        spanMascotaEnemigo.innerHTML = 'Tucapalma'
-    } else{
-        mascotaAleatoria.innerHTML = 'Pydos'
+function extraerAtaques(mascotaJugador){
+    let ataques
+    for (let i = 0; i < dinopones.length; i++){
+        if (mascotaJugador === dinopones[i].nombre){
+            ataques = dinopones[i].ataques
+        }
     }
+    mostrarAtaques(ataques)
+}
+
+function mostrarAtaques(ataques){
+    ataques.forEach((ataque) => {
+        ataquesDinopon = `
+        <button id=${ataque.id} class="boton-ataque">${ataque.nombre}</button>`
+
+        contenedorAtaques.innerHTML += ataquesDinopon
+    })
+    botonFuego = document.getElementById('boton-fuego')
+    botonAgua  = document.getElementById('boton-agua')
+    botonTierra = document.getElementById('boton-tierra')
+
+    botonFuego.addEventListener('click', ataqueFuego)
+    botonAgua.addEventListener('click', ataqueAgua)
+    botonTierra.addEventListener('click', ataqueTierra)
+}
+
+function  seleccionarMascotaEnemigo(){
+    let mascotaAleatoria = aleatorio(0, 3)
+
+    if (mascotaAleatoria == 1 ){
+        spanMascotaEnemigo.innerHTML = 'Hipodoge'
+    } else if (mascotaAleatoria == 2 ){
+        spanMascotaEnemigo.innerHTML = 'Capipepo'
+    } else {
+        spanMascotaEnemigo.innerHTML = 'Ratigueya'
+    }
+    
 }
 
 function ataqueFuego(){
