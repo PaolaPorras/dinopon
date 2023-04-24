@@ -98,7 +98,7 @@ input:checked + label{
     box-sizing: border-box;
     margin:0px 10px;
     font-family: 'Roboto', sans-serif;
-    width: 120px;
+    width: 80px;
     font-weight:700;
 }
 
