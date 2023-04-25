@@ -17,6 +17,9 @@ const ataqueDelEnemigo = document.getElementById('ataque-del-enemigo')
 const contenedorTarjetas = document.getElementById('contenedorTarjetas')
 const contenedorAtaques = document.getElementById('contenedorAtaques')
 
+const sectionVerMapa = document.getElementById('ver-mapa')
+const mapa = document.getElementById('mapa')
+
 let dinopones = []
 
 let ataqueJugador = []
@@ -50,21 +53,34 @@ let victoriasEnemigo = 0
 let vidasJugador = 5
 let vidasEnemigo = 5
 
+let lienzo = mapa.getContext("2d")
+let intervalo
+let mapaBackground = new Image()
+mapaBackground.src = './assets/mapa.jpg'
+
 class Dinopon{
     constructor(nombre, foto, vida){
         this.nombre = nombre
         this.foto = foto
         this.vida = vida
         this.ataques = []
+        this.x = 20
+        this.y = 30
+        this.ancho = 80
+        this.alto = 80
+        this.mapaFoto = new Image()
+        this.mapaFoto.src = foto
+        this.velocidadX = 0
+        this.velocidadY = 0
     }
 }
 
-let hipodoge = new Dinopon('Hipodoge', './assets/hipodoge.webp', 3)
-let capipepo = new Dinopon('Capipepo', './assets/capipepo.webp', 3)
-let ratigueya = new Dinopon('Ratigueya', './assets/ratigueya.webp', 3)
-let langostelvis = new Dinopon('Langostelvis', './assets/langostelvis.jpg', 3)
-let tucapalma = new Dinopon('Tucapalma', './assets/tucapalma-.jpg', 3)
-let pydos = new Dinopon('Pydos', './assets/pydos.webp', 3)
+let hipodoge = new Dinopon('Hipodoge', './assets/hipodoge.png', 3)
+let capipepo = new Dinopon('Capipepo', './assets/capipepo.png', 3)
+let ratigueya = new Dinopon('Ratigueya', './assets/ratigueya.png', 3)
+let langostelvis = new Dinopon('Langostelvis', './assets/langostelvis.png', 3)
+let tucapalma = new Dinopon('Tucapalma', './assets/tucapalma-.png', 3)
+let pydos = new Dinopon('Pydos', './assets/pydos.png', 3)
 
 hipodoge.ataques.push(
     { nombre: '💧', id:'boton-agua'},
@@ -144,15 +160,45 @@ function iniciarPartida(){
     botonReiniciar.addEventListener('click', reiniciarJuego)
 }
 
-function SeleccionarMascotaJugador(){
-    let sectionSeleccionarMascota = document.getElementById('selecciona-mascota')
+function iniciarPartida(){
+    sectionSeleccionarAtaque.style.display ='none'
+    sectionVerMapa.style.display = 'none'
 
+    dinopones.forEach((dinopon) => {
+        opcionDeDinopones = `          
+        <input type="radio" name="dinomascota" id="${dinopon.nombre}"/>
+        <label class ="tarjeta-de-dino" for="${dinopon.nombre}">
+            <p>${dinopon.nombre}</p>
+            <img src="${dinopon.foto}" alt="${dinopon.nombre}">
+        </label>
+`
+        contenedorTarjetas.innerHTML += opcionDeDinopones
+
+        inputHipodoge = document.getElementById('Hipodoge')
+        inputCapipepo = document.getElementById('Capipepo')
+        inputRatigueya = document.getElementById('Ratigueya')
+        inputLangostelvis = document.getElementById('Langostelvis')
+        inputTucapalma = document.getElementById('Tucapalma')
+        inputPydos = document.getElementById('Pydos')
+
+        spanMascotaJugador = document.getElementById('mascota-jugador')
+    })
     
-    let sectionSeleccionarAtaque = document.getElementById('selecciona-ataque')
+    sectionReiniciar.style.display ='none '
+    botonMascotaJugador.addEventListener('click', SeleccionarMascotaJugador)
+
+    botonReiniciar.addEventListener('click', reiniciarJuego)
+}
+
+function SeleccionarMascotaJugador(){
 
     sectionSeleccionarMascota.style.display  ='none'
-    sectionSeleccionarAtaque.style.display  ='flex'
 
+    //movimientos del personaje
+    sectionVerMapa.style.display = 'flex'
+    iniciarMapa()
+
+    //validación de personajes
     if (inputHipodoge.checked){
         spanMascotaJugador.innerHTML = inputHipodoge.id
         mascotaJugador = inputHipodoge.id
@@ -327,5 +373,92 @@ function reiniciarJuego(){
 function aleatorio(min, max){
     return Math.floor(Math.random() * (max - min + 1) + min)
  }
+
+function pintarCanvas(){
+    capipepo.x = capipepo.x + capipepo.velocidadX
+    capipepo.y = capipepo.y + capipepo.velocidadY
+    lienzo.clearRect(0, 0, mapa.width, mapa.height)
+    lienzo.drawImage(
+        mapaBackground,
+        0,
+        0,
+        mapa.width,
+        mapa.height
+    )
+    lienzo.drawImage(
+        capipepo.mapaFoto,
+        capipepo.x,
+        capipepo.y,
+        capipepo.ancho,
+        capipepo.alto
+    )
+ }
+ 
+function moverDerecha(){
+    capipepo.velocidadX = 5
+}
+
+function moverIzquierda(){
+    capipepo.velocidadX = -5
+}
+function moverAbajo(){
+    capipepo.velocidadY = 5
+}
+function moverArriba(){
+    capipepo.velocidadY = -5
+}
+
+function detenerMovimiento(){
+    capipepo.velocidadX = 0
+    capipepo.velocidadY = 0
+}
+
+function sePresionoUnaFlecha(event){
+    switch (event.key) {
+        case 'ArrowUp':
+            moverArriba()
+            break
+        case 'ArrowDown':
+            moverAbajo()
+            break
+        case 'ArrowLeft':
+            moverIzquierda()
+            break
+        case 'ArrowRight':
+            moverDerecha()
+            break
+        default:
+            break
+    }
+}
+
+function sePresionoUnaTecla(event){
+    switch (event.key) {
+        case 'w':
+            moverArriba()
+            break
+        case 's':
+            moverAbajo()
+            break
+        case 'a':
+            moverIzquierda()
+            break
+        case 'd':
+            moverDerecha()
+            break
+        default:
+            break
+    }
+}
+
+function iniciarMapa(){
+    mapa.width = 800
+    mapa.height = 600
+    intervalo = setInterval(pintarCanvas, 50)
+
+    window.addEventListener('keydown', sePresionoUnaFlecha)
+    window.addEventListener('keydown', sePresionoUnaTecla)
+    window.addEventListener('keyup', detenerMovimiento)
+}
 
 window.addEventListener('load', iniciarPartida)
