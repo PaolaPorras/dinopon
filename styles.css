@@ -155,13 +155,68 @@ input:checked + label{
 }
 
 #mapa{
-    border: 2px solid #fff;
-    border-radius:10px;
-
+    margin-bottom:10px;
 }
 
-@media (max-width: 360px){
+#ver-mapa button{
+    width:80px;
+    height: 40px;
+    border-radius: 20px;
+    background:transparent;
+    color:#fff;
+    margin:2px 2px;
+    border: 2px solid white;
+}
+
+@media (max-width: 1200px){
+    .titulo{
+        margin:30px;
+    }
+    .tarjeta-de-dino {
+        width:200px;
+        font-size:16px;
+    }
+    .tarjeta-de-dino > img {
+        width:80px;
+        height:80px;
+        box-sizing:border-box;
+        border-radius:20px;
+        color:#fff;
+        margin-left:10px;
+    }
     .tarjetas, .tarjetas-ataques{
-        flex-direction: column;
+        flex-direction: row;
+        flex-wrap:wrap;
+    }
+    .botones-inferiores{
+        display:flex;
+        align-items: center;
+        flex-direction: row;
+    }
+}
+
+@media (max-width: 800px){
+    .ataques {
+        grid-template-columns:170px 170px;
+    }
+    .ataques > div {
+        color:#fff;
+        margin:10px;
+        padding:0;
+        background:#227C70;
+        font-size: 14px;
+    }
+    
+    .tarjeta-de-dino {
+        width:165px;
+        font-size:14px;
+    }
+    .tarjeta-de-dino > img {
+        width:65px;
+        height:65px;
+        box-sizing:border-box;
+        border-radius:20px;
+        color:#fff;
+        margin-left:10px;
     }
 }
