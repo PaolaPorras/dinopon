@@ -20,6 +20,7 @@ const contenedorAtaques = document.getElementById('contenedorAtaques')
 const sectionVerMapa = document.getElementById('ver-mapa')
 const mapa = document.getElementById('mapa')
 
+let jugadorId = null
 let dinopones = []
 
 let ataqueJugador = []
@@ -236,6 +237,22 @@ function iniciarPartida(){
     botonMascotaJugador.addEventListener('click', SeleccionarMascotaJugador)
 
     botonReiniciar.addEventListener('click', reiniciarJuego)
+
+    unirseAlJuego()
+}
+
+function unirseAlJuego(){
+    fetch("http://localhost:8080/unirse")
+    .then(function (res){
+        console.log(res)
+        if (res.ok){
+            res.text()
+            .then(function (respuesta){
+                console.log(respuesta)
+                jugadorId = respuesta
+            })
+        }
+    })
 }
 
 function SeleccionarMascotaJugador(){
@@ -268,10 +285,25 @@ function SeleccionarMascotaJugador(){
     else {
         alert('Selecciona un dinomascota')
     }
+
+    seleccionarDinopon(mascotaJugador)
+
     extraerAtaques(mascotaJugador)
     sectionVerMapa.style.display = 'flex'
     iniciarMapa()
     
+}
+
+function seleccionarDinopon(mascotaJugador){
+    fetch(`http://localhost:8080/dinopon/${jugadorId}`, {
+        method: "post",
+        headers: {
+            "Content-Type": "application/json"
+        }, 
+        body: JSON.stringify({
+            dinopon: mascotaJugador
+        })
+    })
 }
 
 function extraerAtaques(mascotaJugador){
@@ -436,6 +468,8 @@ function pintarCanvas(){
     )
     mascotaJugadorObjeto.pintarDinopon()
 
+    enviarPosicion(mascotaJugadorObjeto.x, mascotaJugadorObjeto.y)
+
     hipodogeEnemigo.pintarDinopon()
     capipepoEnemigo.pintarDinopon()
     ratigueyaEnemigo.pintarDinopon()
@@ -449,6 +483,19 @@ function pintarCanvas(){
         revisarColision(ratigueyaEnemigo)
     }
  }
+
+function enviarPosicion(x,y){
+    fetch(`http://localhost:8080/dinopon/${jugadorId}/posicion`,{
+        method: "post",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            x,
+            y
+        })
+    })
+}
  
 function moverDerecha(){
     mascotaJugadorObjeto.velocidadX = 5

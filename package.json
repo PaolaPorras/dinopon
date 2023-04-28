@@ -1,0 +1,33 @@
+{
+  "name": "dinopon",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PaolaPorras/dinopon.git"
+  },
+  "keywords": [
+    "juego",
+    "interactivo",
+    "de",
+    "una",
+    "batalla",
+    "clasica",
+    "entre",
+    "oponentes"
+  ],
+  "author": "Yenny Paola Porras",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PaolaPorras/dinopon/issues"
+  },
+  "homepage": "https://github.com/PaolaPorras/dinopon#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2"
+  }
+}
