@@ -21,8 +21,10 @@ const sectionVerMapa = document.getElementById('ver-mapa')
 const mapa = document.getElementById('mapa')
 
 let jugadorId = null
-let dinopones = []
+let enemigoId = null
 
+let dinopones = []
+let dinoponesEnemigos = []
 let ataqueJugador = []
 let ataqueEnemigo = []
 
@@ -72,7 +74,8 @@ mapa.width = anchoDelMapa
 mapa.height = alturaQueBuscamos
 
 class Dinopon{
-    constructor(nombre, foto, vida, fotoMapa){
+    constructor(nombre, foto, vida, fotoMapa, id = null){
+        this.id = id
         this.nombre = nombre
         this.foto = foto
         this.vida = vida
@@ -106,108 +109,62 @@ let langostelvis = new Dinopon('Langostelvis', './assets/langostelvis.png', 3, '
 let tucapalma = new Dinopon('Tucapalma', './assets/tucapalma.png', 3, './assets/avatar-tucapalma.png')
 let pydos = new Dinopon('Pydos', './assets/pydos.png', 3, './assets/avatar-pydos.png')
 
-let hipodogeEnemigo = new Dinopon('Hipodoge', './assets/hipodoge.png', 3, './assets/avatar-hipodoge.png', 80, 120)
-let capipepoEnemigo = new Dinopon('Capipepo', './assets/capipepo.png', 3, './assets/avatar-capipepo.png')
-let ratigueyaEnemigo = new Dinopon('Ratigueya', './assets/ratigueya.png', 3, './assets/avatar-ratigueya.png')
-let langostelvisEnemigo = new Dinopon('Langostelvis', './assets/langostelvis.png', 3, './assets/avatar-langostelvis.png')
-let tucapalmaEnemigo = new Dinopon('Tucapalma', './assets/tucapalma.png', 3, './assets/avatar-tucapalma.png')
-let pydosEnemigo = new Dinopon('Pydos', './assets/pydos.png', 3, './assets/avatar-pydos.png')
 
-hipodoge.ataques.push(
+const hipodoge_ataques = [
     { nombre: '💧', id:'boton-agua'},
     { nombre: '💧', id:'boton-agua'},
     { nombre: '💧', id:'boton-agua'},
     { nombre: '🔥', id:'boton-fuego'},
     { nombre: '🌱', id:'boton-tierra'},
-)
+]
 
-hipodogeEnemigo.ataques.push(
+hipodoge.ataques.push(...hipodoge_ataques)
+
+const capipepo_ataques = [
+    { nombre: '🌱', id:'boton-agua'},
+    { nombre: '🌱', id:'boton-agua'},
+    { nombre: '🌱', id:'boton-agua'},
+    { nombre: '💧', id:'boton-fuego'},
+    { nombre: '🔥', id:'boton-tierra'},
+]
+capipepo.ataques.push(...capipepo_ataques)
+
+const ratigueya_ataques = [
+    { nombre: '🔥', id:'boton-agua'},
+    { nombre: '🔥', id:'boton-agua'},
+    { nombre: '🔥', id:'boton-agua'},
+    { nombre: '💧', id:'boton-fuego'},
+    { nombre: '🌱', id:'boton-tierra'},
+]
+ratigueya.ataques.push(...capipepo_ataques)
+
+const langostelvis_ataques = [
     { nombre: '💧', id:'boton-agua'},
     { nombre: '💧', id:'boton-agua'},
     { nombre: '💧', id:'boton-agua'},
     { nombre: '🔥', id:'boton-fuego'},
     { nombre: '🌱', id:'boton-tierra'},
-)
+]
+langostelvis.ataques.push(...langostelvis_ataques)
 
-capipepo.ataques.push(
+const tucapalma_ataques = [
     { nombre: '🌱', id:'boton-agua'},
     { nombre: '🌱', id:'boton-agua'},
     { nombre: '🌱', id:'boton-agua'},
     { nombre: '💧', id:'boton-fuego'},
     { nombre: '🔥', id:'boton-tierra'},
-)
+]
+tucapalma.ataques.push(...tucapalma_ataques)
 
-capipepo.ataques.push(
-    { nombre: '🌱', id:'boton-agua'},
-    { nombre: '🌱', id:'boton-agua'},
-    { nombre: '🌱', id:'boton-agua'},
-    { nombre: '💧', id:'boton-fuego'},
-    { nombre: '🔥', id:'boton-tierra'},
-)
-
-ratigueya.ataques.push(
+const pydos_ataques = [
     { nombre: '🔥', id:'boton-agua'},
     { nombre: '🔥', id:'boton-agua'},
     { nombre: '🔥', id:'boton-agua'},
     { nombre: '💧', id:'boton-fuego'},
     { nombre: '🌱', id:'boton-tierra'},
-)
-
-ratigueyaEnemigo.ataques.push(
-    { nombre: '🔥', id:'boton-agua'},
-    { nombre: '🔥', id:'boton-agua'},
-    { nombre: '🔥', id:'boton-agua'},
-    { nombre: '💧', id:'boton-fuego'},
-    { nombre: '🌱', id:'boton-tierra'},
-)
-
-langostelvis.ataques.push(
-    { nombre: '💧', id:'boton-agua'},
-    { nombre: '💧', id:'boton-agua'},
-    { nombre: '💧', id:'boton-agua'},
-    { nombre: '🔥', id:'boton-fuego'},
-    { nombre: '🌱', id:'boton-tierra'},
-)
-
-langostelvisEnemigo.ataques.push(
-    { nombre: '💧', id:'boton-agua'},
-    { nombre: '💧', id:'boton-agua'},
-    { nombre: '💧', id:'boton-agua'},
-    { nombre: '🔥', id:'boton-fuego'},
-    { nombre: '🌱', id:'boton-tierra'},
-)
-
-tucapalma.ataques.push(
-    { nombre: '🌱', id:'boton-agua'},
-    { nombre: '🌱', id:'boton-agua'},
-    { nombre: '🌱', id:'boton-agua'},
-    { nombre: '💧', id:'boton-fuego'},
-    { nombre: '🔥', id:'boton-tierra'},
-)
-
-tucapalmaEnemigo.ataques.push(
-    { nombre: '🌱', id:'boton-agua'},
-    { nombre: '🌱', id:'boton-agua'},
-    { nombre: '🌱', id:'boton-agua'},
-    { nombre: '💧', id:'boton-fuego'},
-    { nombre: '🔥', id:'boton-tierra'},
-)
-
-pydos.ataques.push(
-    { nombre: '🔥', id:'boton-agua'},
-    { nombre: '🔥', id:'boton-agua'},
-    { nombre: '🔥', id:'boton-agua'},
-    { nombre: '💧', id:'boton-fuego'},
-    { nombre: '🌱', id:'boton-tierra'},
-)
-
-pydosEnemigo.ataques.push(
-    { nombre: '🔥', id:'boton-agua'},
-    { nombre: '🔥', id:'boton-agua'},
-    { nombre: '🔥', id:'boton-agua'},
-    { nombre: '💧', id:'boton-fuego'},
-    { nombre: '🌱', id:'boton-tierra'},
-)
+]
+pydos.ataques.push(...pydos_ataques)
+  
 
 dinopones.push(hipodoge,capipepo,ratigueya,langostelvis,tucapalma,pydos)
 
@@ -242,7 +199,7 @@ function iniciarPartida(){
 }
 
 function unirseAlJuego(){
-    fetch("http://localhost:8080/unirse")
+    fetch("http://192.168.20.22:8080//unirse")
     .then(function (res){
         console.log(res)
         if (res.ok){
@@ -256,13 +213,6 @@ function unirseAlJuego(){
 }
 
 function SeleccionarMascotaJugador(){
-
-    sectionSeleccionarMascota.style.display  ='none'
-
-    //movimientos del personaje
-    sectionVerMapa.style.display = 'flex'
-
-    //validación de personajes
     if (inputHipodoge.checked){
         spanMascotaJugador.innerHTML = inputHipodoge.id
         mascotaJugador = inputHipodoge.id
@@ -284,7 +234,10 @@ function SeleccionarMascotaJugador(){
     }
     else {
         alert('Selecciona un dinomascota')
+        return
     }
+
+    sectionSeleccionarMascota.style.display  ='none'
 
     seleccionarDinopon(mascotaJugador)
 
@@ -295,7 +248,7 @@ function SeleccionarMascotaJugador(){
 }
 
 function seleccionarDinopon(mascotaJugador){
-    fetch(`http://localhost:8080/dinopon/${jugadorId}`, {
+    fetch(`http://192.168.20.22:8080/dinopon/${jugadorId}`, {
         method: "post",
         headers: {
             "Content-Type": "application/json"
@@ -350,11 +303,40 @@ function secuenciaAtaque(){
                 boton.style.background = '#112f58'
                 boton.disabled = true
         }
-        ataqueAleatorioEnemigo()
+        if(ataqueJugador.length === 5){
+            enviarAtaques()
+        }
         })
     })
 }
 
+function enviarAtaques(){
+    fetch(`http://192.168.20.22:8080/dinopon/${jugadorId}/ataques`,{
+        method: "post",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            ataques: ataqueJugador
+        })
+    })
+   
+    intervalo = setInterval(obtenerAtaques, 50)
+}
+function obtenerAtaques(){
+    fetch(`http://192.168.20.22:8080/dinopon/${enemigoId}/ataques`)
+        .then(function (res){
+            if(res.ok){
+                res.json()
+                .then(function({ataques}){
+                    if(ataques.length === 5){
+                        ataqueEnemigo = ataques
+                        combate()
+                }
+                })
+            }
+        })
+}
 function seleccionarMascotaEnemigo() {
     let mascotaAleatoria = aleatorio(0, dinopones.length -1)
 
@@ -390,6 +372,8 @@ function indexAmbosOponentes(jugador, enemigo){
 }
 
 function combate() {
+    clearInterval(intervalo)
+
     for(let index = 0; index < ataqueJugador.length; index++){
         if(ataqueJugador[index] === ataqueEnemigo[index]){
             indexAmbosOponentes(index,index)
@@ -469,20 +453,12 @@ function pintarCanvas(){
     mascotaJugadorObjeto.pintarDinopon()
 
     enviarPosicion(mascotaJugadorObjeto.x, mascotaJugadorObjeto.y)
-
-    hipodogeEnemigo.pintarDinopon()
-    capipepoEnemigo.pintarDinopon()
-    ratigueyaEnemigo.pintarDinopon()
-    langostelvisEnemigo.pintarDinopon()
-    tucapalmaEnemigo.pintarDinopon()
-    pydosEnemigo.pintarDinopon()
-
-    if (mascotaJugadorObjeto.velocidadX !== 0 || mascotaJugadorObjeto.velocidadY !== 0) {
-        revisarColision(hipodogeEnemigo)
-        revisarColision(capipepoEnemigo)
-        revisarColision(ratigueyaEnemigo)
-    }
- }
+    
+    dinoponesEnemigos.forEach(function (dinopon) {
+        dinopon.pintarDinopon()
+        revisarColision(dinopon)
+    })
+}
 
 function enviarPosicion(x,y){
     fetch(`http://localhost:8080/dinopon/${jugadorId}/posicion`,{
@@ -494,6 +470,36 @@ function enviarPosicion(x,y){
             x,
             y
         })
+    })
+    .then(function (res) {
+        if (res.ok) {
+            res.json()
+                .then(function ({enemigos}) {
+                    console.log(enemigos)
+                    dinoponesEnemigos = enemigos.map(function (enemigo) {
+                        let dinoponEnemigo = null
+                        const dinoponNombre = enemigo.dinopon.nombre || ""
+                        if(dinoponNombre === "Hipodoge"){
+                            dinoponEnemigo = new Dinopon('Hipodoge', './assets/hipodoge.png', 3, './assets/avatar-hipodoge.png' , enemigo.id)
+                        } else if (dinoponNombre === "Capipepo"){
+                            dinoponEnemigo = new Dinopon('Capipepo', './assets/capipepo.png', 3, './assets/avatar-capipepo.png', enemigo.id)
+                        }else if (dinoponNombre === "Ratigueya"){
+                            dinoponEnemigo = new Dinopon('Ratigueya', './assets/ratigueya.png', 3, './assets/avatar-ratigueya.png', enemigo.id)
+                        } else if (dinoponNombre === "langostelvis"){
+                            dinoponEnemigo = new Dinopon('Langostelvis', './assets/langostelvis.png', 3, './assets/avatar-langostelvis.png', enemigo.id)
+                        } else if (dinoponNombre === "Tucapalma"){
+                            dinoponEnemigo = new Dinopon('Tucapalma', './assets/tucapalma.png', 3, './assets/avatar-tucapalma.png', enemigo.id)
+                        } else {
+                            dinoponEnemigo = new Dinopon('Pydos', './assets/pydos.png', 3, './assets/avatar-pydos.png', enemigo.id)
+                        }
+                
+                        dinoponEnemigo.x = enemigo.x
+                        dinoponEnemigo.y = enemigo.y
+
+                        return dinoponEnemigo
+                    })          
+                })
+        }
     })
 }
  
@@ -592,6 +598,7 @@ function revisarColision(enemigo){
     }
     detenerMovimiento()
     clearInterval(intervalo)
+    enemigoId = enemigo.id
     sectionSeleccionarAtaque.style.display = 'flex'
     sectionVerMapa.style.display= 'none'
     seleccionarMascotaEnemigo(enemigo)

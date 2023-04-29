@@ -11,7 +11,7 @@
 <body>
 
     <section id="selecciona-mascota">
-        <h1 class=titulo>DINOPON! 🔥💧🌱</h1>
+        <h1 class=titulo>DINOPON! zntZ🔥💧🌱</h1>
         <h2 class="subtitulo">Escoge tu dinomascota: </h2>
 
         <div class ="tarjetas" id="contenedorTarjetas">     
@@ -23,11 +23,27 @@
     <section id="ver-mapa">
         <h2 class="subtitulo">Recorre el mapa con tu dinopon</h2>
         <canvas id="mapa"></canvas>
-        <button onmouseup="detenerMovimiento()" onmousedown="moverArriba()">Arriba</button>
+        <button 
+            onmouseup="detenerMovimiento()"  
+            ontouchend="detenerMovimiento()" 
+            onmousedown="moverArriba()" 
+            ontouchstart="moverArriba()">Arriba</button>
         <div class="botones-inferiores">
-            <button onmouseup="detenerMovimiento()" onmousedown="moverIzquierda()">Izquierda</button>
-            <button onmouseup="detenerMovimiento()" onmousedown="moverAbajo()">Abajo</button>
-            <button onmouseup="detenerMovimiento()" onmousedown="moverDerecha()">Derecha</button>
+            <button 
+                onmouseup="detenerMovimiento()" 
+                ontouchend="detenerMovimiento()" 
+                onmousedown="moverIzquierda()" 
+                ontouchstart="moverIzquierda()">Izquierda</button>
+            <button 
+                onmouseup="detenerMovimiento()" 
+                ontouchend="detenerMovimiento()" 
+                onmousedown="moverAbajo()" 
+                ontouchstart="moverAbajo()">Abajo</button>
+            <button 
+                onmouseup="detenerMovimiento()" 
+                ontouchend="detenerMovimiento()" 
+                onmousedown="moverDerecha()" 
+                ontouchstart="moverDerecha()">Derecha</button>
         </div>
 
     </section>
@@ -63,6 +79,6 @@
         
 
     </section>
-    <script src="js/dinopon.js"></script>
+    <script src="dinopon.js"></script>
 </body>
 </html><!DOCTYPE html>

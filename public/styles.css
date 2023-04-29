@@ -5,6 +5,7 @@ body{
     background-image: url(./assets/fondo.jpg);
     background-repeat: no-repeat;
     background-size: cover;
+    background-attachment: fixed;    justify-content:center;    
 }
 
 #selecciona-mascota{
@@ -171,6 +172,10 @@ input:checked + label{
 @media (max-width: 1200px){
     .titulo{
         margin:30px;
+    }
+
+    .subtitulo{
+        text-align: center;
     }
     .tarjeta-de-dino {
         width:200px;
